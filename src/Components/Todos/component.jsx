@@ -4,9 +4,9 @@ import EnterTodo from "./EnterTodo";
 import EmptyList from "./EmptyList";
 import List from "./List";
 
-const TodosComponent = ({ enterTodo, onChangeTodo, onAddTodo, todos, onRemoveTodo, isEmptyTodo }) => (
-    <div>
-        <h1>Todos</h1>
+const TodosComponent = ({ enterTodo, onChangeTodo, onAddTodo, todos, onRemoveTodo, isEmptyTodo, onCheckTodo, checked }) => (
+    <div className="todos">
+        <h1 className="todos__title">Todos</h1>
         <EnterTodo 
             enterTodo={enterTodo}
             onChangeTodo={onChangeTodo}
@@ -14,7 +14,12 @@ const TodosComponent = ({ enterTodo, onChangeTodo, onAddTodo, todos, onRemoveTod
         />
         {isEmptyTodo 
         ? <EmptyList />
-        : <List todos={todos} onRemoveTodo={onRemoveTodo}/>
+        : <List 
+        todos={todos}
+        checked={checked}
+        onRemoveTodo={onRemoveTodo} 
+        onCheckTodo={onCheckTodo}
+        />
         }
     </div>
 )
