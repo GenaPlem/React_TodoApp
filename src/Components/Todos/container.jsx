@@ -1,5 +1,6 @@
 import React from "react";
-import TodosComponent from './component'
+import TodosComponent from './component';
+import "./styles.scss"
 
 class Todos extends React.Component {
     constructor(props) {
@@ -7,6 +8,7 @@ class Todos extends React.Component {
         this.state = {
             enterTodo: '',
             todos: [],
+            checked: false,
         }
     }
 
@@ -20,9 +22,10 @@ class Todos extends React.Component {
         const newTodo = {
             id: Math.random().toString(36).substring(2, 15),
             text: enterTodo,
+            checked: false,
         }
         if (enterTodo.length > 0) {
-            this.setState({todos: [...todos, newTodo], enterTodo: ''})
+            this.setState({todos: [...todos, newTodo], enterTodo: ''});
         }
     }
 
@@ -30,6 +33,22 @@ class Todos extends React.Component {
         const { todos } = this.state;
 
         const updatedTodo = todos.filter(({id}) => id !== todoId);
+
+        this.setState({todos: updatedTodo})
+    }
+
+    handleCheckTodo = (todoId) => {
+        const { todos } = this.state;
+
+        const updatedTodo = todos.map((todo) => {
+            if (todo.id === todoId) {
+                return {
+                    ...todo,
+                    checked: !todo.checked,
+                }
+            } 
+            return todo;
+        })
 
         this.setState({todos: updatedTodo})
     }
@@ -42,6 +61,7 @@ class Todos extends React.Component {
         onAddTodo={this.handleAddTodo}
         onRemoveTodo={this.handleRemoveTodo}
         isEmptyTodo={this.isEmptyTodo()}
+        onCheckTodo={this.handleCheckTodo}
         {...this.state}
         />
     )

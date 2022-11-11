@@ -1,0 +1,14 @@
+.enter {
+  width: 100%;
+  padding: 0 15px;
+  &-wrap {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__add {
+    white-space: nowrap;
+    padding: 10px;
+    margin-left: 5px;
+  }
+}
