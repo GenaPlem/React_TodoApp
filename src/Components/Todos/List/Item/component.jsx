@@ -1,8 +1,11 @@
 import React from "react";
+import {connect} from "react-redux";
+
+import { removeTodo, checkTodo } from "../../../../store/actions";
 
 import "./styles.scss"
 
-const Item = ({ id, text, onRemoveTodo, onCheckTodo, checked }) => (
+const Item = ( { id, checked, value, removeTodo, checkTodo } ) => (
     <li className="item">
       <div className="item__value">
         <input
@@ -11,14 +14,19 @@ const Item = ({ id, text, onRemoveTodo, onCheckTodo, checked }) => (
           name="checked"
           id={id}
           value={checked}
-          onChange={() => onCheckTodo(id)}
+          onChange={() => checkTodo(id)}
         />
-        <span className="item__text">{text}</span>
+        <span className="item__text">{value}</span>
       </div>
-      <button onClick={() => onRemoveTodo(id)}>
+      <button onClick={() => removeTodo(id)}>
         x
       </button>
     </li>
   )
 
-export default Item
+const mapDispatchToProps = {
+    removeTodo,
+    checkTodo,
+}
+
+export default connect(null, mapDispatchToProps)(Item)
