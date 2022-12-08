@@ -1,22 +1,21 @@
 import React from "react";
+import {connect} from "react-redux";
 
+import { selectTodos } from "../../../store/selector";
 import Item from "./Item/component";
 
 import "./styles.scss"
 
-const List = ({ todos, onRemoveTodo, onCheckTodo, checked }) => (
+const List = ({ todos }) => (
     <ul className="list">
-        {todos.map(({id, text}) => (
-        <Item 
-        key={id} 
-        id={id}
-        text={text} 
-        checked={checked}
-        onRemoveTodo={onRemoveTodo}
-        onCheckTodo={onCheckTodo}
-        />
+        {todos.map(( todo ) => (
+        <Item {...todo} key = {todo.id} />
         ))}
     </ul>
 )
 
-export default List
+const mapStateToProps = state => ({
+    todos: selectTodos(state),
+})
+
+export default connect(mapStateToProps)(List)
